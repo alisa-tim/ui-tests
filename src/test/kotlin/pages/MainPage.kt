@@ -1,24 +1,23 @@
 package pages
 
-import containers.Calendar
-import com.codeborne.selenide.Condition.text
 import com.codeborne.selenide.Selectors
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
 import containers.SearchBar
-import java.time.LocalDate
+import io.qameta.allure.Step
 
 class MainPage {
 
     val searchBar = SearchBar()
 
+    @Step("Open main page")
     fun open(): MainPage {
-        Selenide.open("https://www.booking.com/")
+        Selenide.open("/")
         dismissSignIn()
         return this
     }
 
-    fun dismissSignIn() {
+    private fun dismissSignIn() {
         element(Selectors.by("aria-label", "Dismiss sign-in info.")).click()
     }
 

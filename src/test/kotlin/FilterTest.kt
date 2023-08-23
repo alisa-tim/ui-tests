@@ -1,15 +1,12 @@
-import com.codeborne.selenide.Selenide
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 import pages.MainPage
 import pages.SearchResultsPage
 import java.time.LocalDate
 
-class FilterTest {
+class FilterTest : BaseTest {
 
     @BeforeEach
     fun search() {
@@ -21,11 +18,6 @@ class FilterTest {
                 checkInDate = LocalDate.now().plusDays(1),
                 checkOutDate = LocalDate.now().plusDays(2)
             )
-    }
-
-    @AfterEach
-    fun clearCookies() {
-        Selenide.clearBrowserCookies()
     }
 
     @ParameterizedTest(name = "filter hotels by score: {arguments}")

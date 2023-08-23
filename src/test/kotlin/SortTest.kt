@@ -1,13 +1,11 @@
-import com.codeborne.selenide.Selenide
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import pages.MainPage
 import pages.SearchResultsPage
 import java.time.LocalDate
 
-class SortTest {
+class SortTest : BaseTest {
 
     @BeforeEach
     fun search() {
@@ -19,10 +17,6 @@ class SortTest {
                 checkInDate = LocalDate.now().plusDays(1),
                 checkOutDate = LocalDate.now().plusDays(2)
             )
-    }
-    @AfterEach
-    fun clearCookies() {
-        Selenide.clearBrowserCookies()
     }
 
     @Test
