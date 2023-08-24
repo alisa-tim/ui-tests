@@ -1,34 +1,37 @@
-package pages
+package pageObject.desktop.pages
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selectors
 import com.codeborne.selenide.Selenide.*
 import com.codeborne.selenide.SelenideElement
-import containers.Filter
-import containers.SearchBar
-import containers.Sort
+import pageObject.desktop.containers.Filter
+import pageObject.desktop.containers.SearchBar
+import pageObject.desktop.containers.Sort
+import interfaces.AbstractHotel
+import interfaces.AbstractSearchResultsPage
 import java.time.Duration
 
-class SearchResultsPage {
+class SearchResultsPage : AbstractSearchResultsPage {
 
     init {
         element(Selectors.by("data-testid", "overlay-spinner")).should(Condition.disappear, Duration.ofSeconds(5))
     }
 
-    val filter = Filter()
-    val sort = Sort()
-    val searchBar = SearchBar()
-    val hotels
+    override val filter = Filter()
+    override val searchBar = SearchBar()
+    override val hotels
         get() = elements(Selectors.by("data-testid", "property-card")).map { Hotel(it) }
 
-    class Hotel(val container: SelenideElement) {
-        val location
+    class Hotel(val container: SelenideElement) : AbstractHotel {
+        override val location
             get() = container.find(Selectors.by("data-testid", "address")).text()
-        val price
+        override val price
             get() = container.find(Selectors.by("data-testid", "price-and-discounted-price")).text().filter { it.isDigit() }.toInt()
-        val rating
+        override val rating
             get() = container
                 .find(Selectors.by("data-testid", "review-score"))
                 .find("div:first-child").text().toDouble()
     }
+
+    override fun sortBy(order: String) = Sort().sortBy(order)
 }

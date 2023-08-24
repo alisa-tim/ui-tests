@@ -1,9 +1,9 @@
-package containers
+package pageObject.desktop.containers
 
 import com.codeborne.selenide.Selectors
 import com.codeborne.selenide.Selenide.element
 import io.qameta.allure.Step
-import pages.SearchResultsPage
+import pageObject.desktop.pages.SearchResultsPage
 
 class Sort {
 
