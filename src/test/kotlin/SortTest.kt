@@ -1,15 +1,14 @@
+import BaseTest.Companion.pages
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import pages.MainPage
-import pages.SearchResultsPage
 import java.time.LocalDate
 
 class SortTest : BaseTest {
 
     @BeforeEach
     fun search() {
-        MainPage()
+        pages.mainPage
             .open()
             .searchBar
             .search(
@@ -21,8 +20,7 @@ class SortTest : BaseTest {
 
     @Test
     fun `sort hotels by price`() {
-        val prices = SearchResultsPage()
-            .sort
+        val prices = pages.searchResultsPage
             .sortBy("Price (lowest first)")
             .hotels
             .map { it.price }
@@ -31,8 +29,7 @@ class SortTest : BaseTest {
 
     @Test
     fun `sort hotels by rating ASC`() {
-        val scores = SearchResultsPage()
-            .sort
+        val scores = pages.searchResultsPage
             .sortBy("Property rating (low to high)")
             .hotels
             .map { it.rating }

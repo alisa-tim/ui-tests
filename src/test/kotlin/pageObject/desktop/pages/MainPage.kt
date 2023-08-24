@@ -1,17 +1,18 @@
-package pages
+package pageObject.desktop.pages
 
 import com.codeborne.selenide.Selectors
 import com.codeborne.selenide.Selenide
 import com.codeborne.selenide.Selenide.element
-import containers.SearchBar
+import pageObject.desktop.containers.SearchBar
+import interfaces.AbstractMainPage
 import io.qameta.allure.Step
 
-class MainPage {
+class MainPage : AbstractMainPage {
 
-    val searchBar = SearchBar()
+    override val searchBar = SearchBar()
 
     @Step("Open main page")
-    fun open(): MainPage {
+    override fun open(): MainPage {
         Selenide.open("/")
         dismissSignIn()
         return this
@@ -20,5 +21,4 @@ class MainPage {
     private fun dismissSignIn() {
         element(Selectors.by("aria-label", "Dismiss sign-in info.")).click()
     }
-
 }
