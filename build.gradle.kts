@@ -29,7 +29,14 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    systemProperty("platform", System.getProperty("platform"))
+    systemProperties(
+        mapOf(
+            "platform" to (System.getProperty("platform") ?: "desktop"),
+            "wdAddress" to (System.getProperty("wdAddress") ?: "http://localhost:4444/wd/hub"),
+            "junit.jupiter.execution.parallel.enabled" to true,
+            "junit.jupiter.execution.parallel.mode.default" to "CONCURRENT"
+        )
+    )
 }
 
 tasks.withType<KotlinCompile> {

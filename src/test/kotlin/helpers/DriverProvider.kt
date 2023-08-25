@@ -5,9 +5,11 @@ import org.openqa.selenium.Capabilities
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.remote.RemoteWebDriver
+import java.net.URL
 
 class DriverProvider : WebDriverProvider {
-    override fun createDriver(capabilities: Capabilities): WebDriver {
+    override fun createDriver(capabilities: Capabilities): RemoteWebDriver {
 
         val chromeOptions = ChromeOptions()
 
@@ -23,7 +25,6 @@ class DriverProvider : WebDriverProvider {
             chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation)
         }
 
-        return ChromeDriver(chromeOptions)
-
+        return RemoteWebDriver(URL(System.getProperty("wdAddress")), chromeOptions)
     }
 }
